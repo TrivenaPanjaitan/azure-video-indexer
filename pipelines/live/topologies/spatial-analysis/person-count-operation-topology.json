@@ -1,0 +1,158 @@
+{
+    "@apiVersion": "1.1",
+    "name": "PersonCountTopology",
+    "properties": {
+      "description": "Analyzing Live Video with Computer Vision for Spatial Analysis",
+      "parameters": [
+        {
+          "name": "rtspUserName",
+          "type": "String",
+          "description": "rtsp source user name.",
+          "default": "dummyUserName"
+        },
+        {
+          "name": "rtspPassword",
+          "type": "String",
+          "description": "rtsp source password.",
+          "default": "dummyPassword"
+        },
+        {
+          "name": "rtspUrl",
+          "type": "String",
+          "description": "rtsp Url"
+        },
+        {
+          "name": "grpcUrl",
+          "type": "String",
+          "description": "inferencing Url",
+          "default": "tcp://spatialanalysis:50051"
+        },
+        {
+          "name": "spatialanalysisusername",
+          "type": "String",
+          "description": "spatialanalysis endpoint username",
+          "default": "not-in-use"
+        },
+        {
+          "name": "spatialanalysispassword",
+          "type": "String",
+          "description": "spatialanalysis endpoint password",
+          "default": "not-in-use"
+        }
+      ],
+      "sources": [
+        {
+          "@type": "#Microsoft.VideoAnalyzer.RtspSource",
+          "name": "rtspSource",
+          "transport": "tcp",
+          "endpoint": {
+            "@type": "#Microsoft.VideoAnalyzer.UnsecuredEndpoint",
+            "url": "${rtspUrl}",
+            "credentials": {
+              "@type": "#Microsoft.VideoAnalyzer.UsernamePasswordCredentials",
+              "username": "${rtspUserName}",
+              "password": "${rtspPassword}"
+            }
+          }
+        }
+      ],
+      "processors": [
+        {
+          "@type": "#Microsoft.VideoAnalyzer.CognitiveServicesVisionProcessor",
+          "name": "computerVisionExtension",
+          "endpoint": {
+            "@type": "#Microsoft.VideoAnalyzer.UnsecuredEndpoint",
+            "url": "${grpcUrl}",
+            "credentials": {
+              "@type": "#Microsoft.VideoAnalyzer.UsernamePasswordCredentials",
+              "username": "${spatialanalysisusername}",
+              "password": "${spatialanalysispassword}"
+            }
+          },
+          "inputs": [
+            {
+              "nodeName": "rtspSource",
+              "outputSelectors": [
+                {
+                  "property": "mediaType",
+                  "operator": "is",
+                  "value": "video"
+                }
+              ]
+            }
+          ],
+          "samplingOptions": {         
+            "skipSamplesWithoutAnnotation": "false",                
+            "maximumSamplesPerSecond": "15.0"                        
+          },
+          "operation": {
+            "@type": "#Microsoft.VideoAnalyzer.SpatialAnalysisPersonCountOperation",
+            "enableFaceMaskClassifier": "false",
+            "trackerNodeConfiguration": "{\"enable_speed\": true}",
+            "zones": [
+              {
+                "zone": {
+                  "@type": "#Microsoft.VideoAnalyzer.NamedPolygonString",
+                  "polygon": "[[0.0,0.0],[0.0,1.0],[1.0,1.0],[1.0,0.0],[0.0,0.0]]",
+                  "name": "entireframe"
+                },
+                "events": [
+                  {
+                    "trigger": "event",
+                    "outputFrequency": "1",
+                    "threshold": "16",
+                    "focus": "bottomCenter"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "@type": "#Microsoft.VideoAnalyzer.SignalGateProcessor",
+          "name": "signalGateProcessor",
+          "inputs": [
+            {
+              "nodeName": "computerVisionExtension"
+            },
+            {
+              "nodeName": "rtspSource"
+            }
+          ],
+          "activationEvaluationWindow": "PT1S",
+          "activationSignalOffset": "PT0S",
+          "minimumActivationTime": "PT30S",
+          "maximumActivationTime": "PT30S"
+        }
+      ],
+      "sinks": [
+        {
+          "@type": "#Microsoft.VideoAnalyzer.IotHubMessageSink",
+          "name": "hubSink",
+          "hubOutputName": "inferenceOutput",
+          "inputs": [
+            {
+              "nodeName": "computerVisionExtension"
+            }
+          ]
+        },
+        {
+            "@type": "#Microsoft.VideoAnalyzer.VideoSink",
+            "name": "videoSink",
+            "videoName": "personCount",
+            "inputs": [
+                {
+                  "nodeName": "signalGateProcessor"
+                }
+            ],
+            "videoCreationProperties": {
+              "title": "Person Counting",
+              "description": "Person Counting in Retail store",
+              "segmentLength": "PT30S"
+            },
+            "localMediaCachePath": "/var/lib/videoanalyzer/tmp/",
+            "localMediaCacheMaximumSizeMiB": "2048"
+          }
+      ]
+    }
+  }
