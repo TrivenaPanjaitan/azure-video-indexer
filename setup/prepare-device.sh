@@ -30,18 +30,18 @@ sudo curl https://avamedia.blob.core.windows.net/public/retailshop-15fps.mkv --o
 # give the local user access
 sudo chown -R localedgeuser:localedgegroup /home/localedgeuser/
 
-# set up folders for use by the Video Analyzer module
+# set up folders for use by the Video Indexers module
 # these are mounted in the deployment manifest
 
 # !NOTE! these folder locations are must match the folders used in `deploy-modules.sh` and ultimately the IoT edge deployment manifest
 
 # general app data for the module
-sudo mkdir -p /var/lib/videoanalyzer 
-sudo chown -R localedgeuser:localedgegroup /var/lib/videoanalyzer/
-sudo mkdir -p /var/lib/videoanalyzer/tmp/ 
-sudo chown -R localedgeuser:localedgegroup /var/lib/videoanalyzer/tmp/
-sudo mkdir -p /var/lib/videoanalyzer/logs
-sudo chown -R localedgeuser:localedgegroup /var/lib/videoanalyzer/logs
+sudo mkdir -p /var/lib/videoindexer
+sudo chown -R localedgeuser:localedgegroup /var/lib/videoindexer/
+sudo mkdir -p /var/lib/videoindexer/tmp/ 
+sudo chown -R localedgeuser:localedgegroup /var/lib/videoindexer/tmp/
+sudo mkdir -p /var/lib/videoindexer/logs
+sudo chown -R localedgeuser:localedgegroup /var/lib/videoindexer/logs
 
 # output folder for file sink
 sudo mkdir -p /var/media

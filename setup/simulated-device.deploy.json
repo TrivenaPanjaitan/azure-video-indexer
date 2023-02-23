@@ -55,7 +55,7 @@
             "metadata": {
                 "description": "The username for accesing the edge device."
             },
-            "defaultValue": "avaadmin",
+            "defaultValue": "aviadmin",
             "type": "string"
         },
         "ubuntuOSVersion": {
@@ -71,7 +71,7 @@
         "resourceTags": {
             "type": "object",
             "defaultValue": {
-                "sample": "azure-video-analyzer"
+                "sample": "azure-video-indexer"
             }
         }
     },

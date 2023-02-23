@@ -2,12 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "description": "This template is orchestrates a deployment of Azure Video Analyzer and the supporting resources needed for running most official samples. It is a subscription level deployment and uses both nested and linked templates for scope and modularity."
+        "description": "This template is orchestrates a deployment of Azure Video Indexer and the supporting resources needed for running most official samples. It is a subscription level deployment and uses both nested and linked templates for scope and modularity."
     },
     "parameters": {
         "resourceGroup": {
             "type": "string",
-            "defaultValue": "ava-sample-deployment",
+            "defaultValue": "avi-sample-deployment",
             "metadata": {
                 "description": "The name of the resource group for deploying new resources."
             }
@@ -24,7 +24,7 @@
             "metadata": {
                 "description": "The username for accesing the VM acting as the edge device."
             },
-            "defaultValue": "avaadmin",
+            "defaultValue": "aviadmin",
             "type": "string"
         },
         "simulatedEdgeDeviceAdminPassword": {
@@ -72,14 +72,14 @@
         "resourceTags": {
             "type": "object",
             "defaultValue": {
-                "sample": "azure-video-analyzer"
+                "sample": "azure-video-indexer"
             }
         },
         "namePrefix": {
             "metadata": {
                 "description": "Used to qualify the names of all of the resources created in this template."
             },
-            "defaultValue": "avasample",
+            "defaultValue": "avisample",
             "type": "string",
             "minLength": 3,
             "maxLength": 11
@@ -93,7 +93,7 @@
         }
     },
     "variables": {
-        "_artifactsLocation": "https://raw.githubusercontent.com/Azure/video-analyzer/main/setup/",
+        "_artifactsLocation": "https://raw.githubusercontent.com/Azure/video-indexer/main/setup/",
         "managedIdentityName": "[concat(parameters('namePrefix'),'-deployment-identity-',uniqueString(parameters('resourceGroup')))]",
         "managedIdentityId": "[concat(subscription().id,'/resourceGroups/',parameters('resourceGroup'),'/providers/Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentityName'))]",
         "simulatedDeviceName": "[concat(parameters('namePrefix'),'-iot-edge-device')]",
@@ -114,7 +114,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-06-01",
             "name": "deploy-managed-identity",
-            "comments": "This is a nested deployment into the main resource group. The managed identity is necessary for running script during deployment. It is not needed for operating Video Analyzer.",
+            "comments": "This is a nested deployment into the main resource group. The managed identity is necessary for running script during deployment. It is not needed for operating Video Indexer.",
             "resourceGroup": "[parameters('resourceGroup')]",
             "dependsOn": [
                 "[parameters('resourceGroup')]"
@@ -283,8 +283,8 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-06-01",
-            "name": "deploy-video-analyzer-resources",
-            "comments": "Deploys the core resources for Video Analyzer",
+            "name": "deploy-video-indexer-resources",
+            "comments": "Deploys the core resources for Video Indexer",
             "resourceGroup": "[parameters('resourceGroup')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups',parameters('resourceGroup'))]",
@@ -292,7 +292,7 @@
             ],
             "properties": {
                 "templateLink": {
-                    "uri": "[uri(variables('_artifactsLocation'),'video-analyzer.deploy.json')]"
+                    "uri": "[uri(variables('_artifactsLocation'),'video-indexer.deploy.json')]"
                 },
                 "mode": "Incremental",
                 "parameters": {
@@ -466,7 +466,7 @@
             "name": "deploy-and-configure-modules",
             "comments": "This nested deployment uses a deployment script to set modules on the specified edge device.",
             "dependsOn": [
-                "deploy-video-analyzer-resources",
+                "deploy-video-indexer-resources",
                 "deploy-simulated-edge-device",
                 "[parameters('resourceGroup')]",
                 "deploy-container-registry"
@@ -507,7 +507,7 @@
                                     },
                                     {
                                         "name": "PROVISIONING_TOKEN",
-                                        "value": "[reference('deploy-video-analyzer-resources').outputs.provisioningToken.value]"
+                                        "value": "[reference('deploy-video-indexer-resources').outputs.provisioningToken.value]"
                                     },
                                     {
                                         "name": "HUB_NAME",
@@ -527,11 +527,11 @@
                                     },
                                     {
                                         "name": "APPDATA_FOLDER_ON_DEVICE",
-                                        "value": "/var/lib/videoanalyzer/"
+                                        "value": "/var/lib/videoindexer/"
                                     },
                                     {
                                         "name": "AZURE_STORAGE_ACCOUNT",
-                                        "value": "[reference('deploy-video-analyzer-resources').outputs.storageAccountName.value]"
+                                        "value": "[reference('deploy-video-indexer-resources').outputs.storageAccountName.value]"
                                     },
                                     {
                                         "name": "RESOURCE_GROUP",
@@ -547,7 +547,7 @@
                                     },
                                     {
                                         "name": "IOT_EDGE_MODULE_NAME",
-                                        "value": "[reference('deploy-video-analyzer-resources').outputs.edgeModuleName.value]"
+                                        "value": "[reference('deploy-video-indexer-resources').outputs.edgeModuleName.value]"
                                     },
                                     {
                                         "name": "REGISTRY_USER_NAME",
@@ -576,7 +576,7 @@
             "value": {
                 "iotHubConnectionString": "[reference('deploy-iot-resources').outputs.connectionString.value]",
                 "deviceId": "[variables('deviceName')]",
-                "moduleId": "[reference('deploy-video-analyzer-resources').outputs.edgeModuleName.value]"
+                "moduleId": "[reference('deploy-video-indexer-resources').outputs.edgeModuleName.value]"
             }
         }
     }

@@ -37,14 +37,14 @@
           }
         },
         "modules": {
-          "avaedge": {
+          "aviedge": {
             "version": "1.1",
             "type": "docker",
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "mcr.microsoft.com/media/video-analyzer:1",
-              "createOptions": "{ \"HostConfig\": { \"LogConfig\": { \"Type\": \"\", \"Config\": { \"max-size\": \"10m\", \"max-file\": \"10\" } }, \"Binds\": [ \"$VIDEO_OUTPUT_FOLDER_ON_DEVICE:/var/media/\", \"$APPDATA_FOLDER_ON_DEVICE:/var/lib/videoanalyzer\" ], \"IpcMode\": \"host\", \"ShmSize\": 1536870912 } }"
+              "image": "mcr.microsoft.com/media/video-indexer:1",
+              "createOptions": "{ \"HostConfig\": { \"LogConfig\": { \"Type\": \"\", \"Config\": { \"max-size\": \"10m\", \"max-file\": \"10\" } }, \"Binds\": [ \"$VIDEO_OUTPUT_FOLDER_ON_DEVICE:/var/media/\", \"$APPDATA_FOLDER_ON_DEVICE:/var/lib/videoindexer\" ], \"IpcMode\": \"host\", \"ShmSize\": 1536870912 } }"
             },
             "env": {
               "LOCAL_USER_ID": {
@@ -61,7 +61,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "mcr.microsoft.com/ava-utilities/rtspsim-live555:1.2",
+              "image": "mcr.microsoft.com/avi-utilities/rtspsim-live555:1.2",
               "createOptions": "{ \"HostConfig\": { \"Binds\": [ \"$VIDEO_INPUT_FOLDER_ON_DEVICE:/live/mediaServer/media\" ] } }"
             }
           }
@@ -72,17 +72,17 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "AVAToHub": "FROM /messages/modules/avaedge/outputs/* INTO $upstream"
+          "aviToHub": "FROM /messages/modules/aviedge/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
         }
       }
     },
-    "avaedge": {
+    "aviedge": {
       "properties.desired": {
-        "applicationDataDirectory": "/var/lib/videoanalyzer",
-        "ProvisioningToken": "$AVA_PROVISIONING_TOKEN",
+        "applicationDataDirectory": "/var/lib/videoindexerr",
+        "ProvisioningToken": "$avi_PROVISIONING_TOKEN",
         "diagnosticsEventsOutputName": "diagnostics",
         "operationalEventsOutputName": "operational",
         "logLevel": "information",

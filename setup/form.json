@@ -6,7 +6,7 @@
         "config": {
             "isWizard": true,
             "basics": {
-                "description": "This template deploys and configures resources required for **Azure Video Analyzer** samples, see [more](https://aka.ms/ava-overview).",
+                "description": "This template deploys and configures resources required for **Azure Video Indexer** samples, see [more](https://aka.ms/ava-overview).",
                 "subscription": {
                     "constraints": {
                         "validations": [
@@ -25,9 +25,9 @@
                 },
                 "location": {
                     "label": "Region",
-                    "toolTip": "The list is constrained to regions where Video Analyzer is available.",
+                    "toolTip": "The list is constrained to regions where Video Indexer is available.",
                     "resourceTypes": [
-                        "Microsoft.Media/videoAnalyzers"
+                        "Microsoft.Media/videoIndexers"
                     ],
                     "visible": true
                 }
@@ -38,7 +38,7 @@
                 "name": "resourceGroup",
                 "type": "Microsoft.Common.TextBox",
                 "label": "Resource Group",
-                "placeholder": "ava-sample-deployment",
+                "placeholder": "avi-sample-deployment",
                 "toolTip": "This form does not check for the availability of the resource group name until it is deployed.",
                 "constraints": {
                     "required": true
@@ -111,7 +111,7 @@
                                 "name": "simulatedEdgeDeviceAdminUsername",
                                 "type": "Microsoft.Common.TextBox",
                                 "label": "Username",
-                                "defaultValue": "avaadmin",
+                                "defaultValue": "aviadmin",
                                 "constraints": {
                                     "required": "[steps('simulatedDeviceSection').visible]"
                                 },
@@ -216,9 +216,9 @@
             "existingDeviceName": "[steps('edgeDeviceSettings').existingDeviceSection.existingDeviceName]",
             "existingHubNameResourceGroup": "[if(contains(basics('useExistingEdgeDevice'),'existing'),substring(steps('edgeDeviceSettings').existingDeviceSection.existingHubName.id, add(lastIndexOf(steps('edgeDeviceSettings').existingDeviceSection.existingHubName.id,'resourceGroups/'),length('resourceGroups/')), sub(sub(lastIndexOf(steps('edgeDeviceSettings').existingDeviceSection.existingHubName.id,'providers/'),lastIndexOf(steps('edgeDeviceSettings').existingDeviceSection.existingHubName.id,'resourceGroups/')),16)),'')]",
             "resourceTags": {
-                "sample": "azure-video-analyzer"
+                "sample": "azure-video-indexer"
             },
-            "namePrefix": "avasample",
+            "namePrefix": "avisample",
             "baseTime": "[utcNow()]"
         }
     }

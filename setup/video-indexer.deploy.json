@@ -7,7 +7,7 @@
             "metadata": {
                 "description": "Used to qualify the names of all of the resources created in this template."
             },
-            "defaultValue": "avasample",
+            "defaultValue": "avisample",
             "type": "string",
             "minLength": 3,
             "maxLength": 13
@@ -16,13 +16,13 @@
             "metadata": {
                 "description": "The edge module identity used to provision an authentication token for the edge device."
             },
-            "defaultValue": "avaedge",
+            "defaultValue": "aviedge",
             "type": "string"
         },
         "resourceTags": {
             "type": "object",
             "defaultValue": {
-                "sample": "azure-video-analyzer"
+                "sample": "azure-video-indexer"
             }
         },
         "baseTime": {
@@ -162,8 +162,8 @@
             }
         },
         {
-            "type": "Microsoft.Media/videoAnalyzers",
-            "comments": "The Azure Video Analyzer account",
+            "type": "Microsoft.Media/videoIndexers",
+            "comments": "The Azure Video Indexer account",
             "apiVersion": "2021-11-01-preview",
             "name": "[variables('accountName')]",
             "location": "[resourceGroup().location]",
@@ -198,19 +198,19 @@
             "tags": "[parameters('resourceTags')]"
         },
         {
-            "type": "Microsoft.Media/videoAnalyzers/edgeModules",
+            "type": "Microsoft.Media/videoIndexers/edgeModules",
             "comments": "",
             "apiVersion": "2021-05-01-preview",
             "name": "[concat(variables('accountName'),'/',variables('edgeModuleName'))]",
             "dependsOn": [
-                "[resourceId('Microsoft.Media/videoAnalyzers', variables('accountName'))]"
+                "[resourceId('Microsoft.Media/videoIndexers', variables('accountName'))]"
             ]
         }
     ],
     "outputs": {
         "accountId": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Media/videoAnalyzers', variables('accountName'))]"
+            "value": "[resourceId('Microsoft.Media/videoIndexers', variables('accountName'))]"
         },
         "edgeModuleName": {
             "type": "string",
@@ -222,7 +222,7 @@
         },
         "provisioningToken": {
             "type": "string",
-            "value": "[listProvisioningToken(resourceId('Microsoft.Media/videoAnalyzers/edgeModules', variables('accountName'), variables('edgeModuleName')),'2021-05-01-preview',variables('tokenExpiration')).token]"
+            "value": "[listProvisioningToken(resourceId('Microsoft.Media/videoIndexers/edgeModules', variables('accountName'), variables('edgeModuleName')),'2021-05-01-preview',variables('tokenExpiration')).token]"
         }
     }
 }

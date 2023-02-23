@@ -6,7 +6,7 @@
             "metadata": {
                 "description": "Used to qualify the names of all of the resources created in this template."
             },
-            "defaultValue": "avasample",
+            "defaultValue": "avisample",
             "type": "string",
             "minLength": 3,
             "maxLength": 13
@@ -28,7 +28,7 @@
         "resourceTags": {
             "type": "object",
             "defaultValue": {
-                "sample": "azure-video-analyzer"
+                "sample": "azure-video-indexer"
             }
         },
         "roleNameGuid": {
@@ -94,7 +94,7 @@
         {
             "condition": "[empty(parameters('hubName'))]",
             "type": "Microsoft.Devices/IotHubs",
-            "comments": "Video Analyzer is hosted on an IoT Edge device. The host device is managed through an IoT Hub. The keys for accessing the hub are in the template's output.",
+            "comments": "Video Indexer is hosted on an IoT Edge device. The host device is managed through an IoT Hub. The keys for accessing the hub are in the template's output.",
             "apiVersion": "[variables('hubApiVersion')]",
             "name": "[variables('hubName')]",
             "location": "[resourceGroup().location]",

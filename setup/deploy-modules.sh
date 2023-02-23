@@ -18,7 +18,7 @@
 # $REGESTRY_PASSWORD                - the password for the container registry
 # $REGISTRY_USER_NAME               - the user name for the container registry
 # $IOT_HUB_CONNECTION_STRING        - the IoT Hub connection string
-# $IOT_EDGE_MODULE_NAME             - the IoT avaedge module name
+# $IOT_EDGE_MODULE_NAME             - the IoT aviedge module name
 #
 #######################################################################################################
 
@@ -31,7 +31,7 @@ curl -s $DEPLOYMENT_MANIFEST_TEMPLATE_URL > deployment.json
 
 # update the values in the manifest
 printf "replacing value in manifest\n"
-sed -i "s@\$AVA_PROVISIONING_TOKEN@${PROVISIONING_TOKEN}@g" deployment.json
+sed -i "s@\$AVI_PROVISIONING_TOKEN@${PROVISIONING_TOKEN}@g" deployment.json
 sed -i "s@\$VIDEO_OUTPUT_FOLDER_ON_DEVICE@${VIDEO_OUTPUT_FOLDER_ON_DEVICE}@g" deployment.json
 sed -i "s@\$VIDEO_INPUT_FOLDER_ON_DEVICE@${VIDEO_INPUT_FOLDER_ON_DEVICE}@g" deployment.json
 sed -i "s@\$APPDATA_FOLDER_ON_DEVICE@${APPDATA_FOLDER_ON_DEVICE}@g" deployment.json
@@ -40,7 +40,7 @@ sed -i "s@\$APPDATA_FOLDER_ON_DEVICE@${APPDATA_FOLDER_ON_DEVICE}@g" deployment.j
 >env.txt
 echo "SUBSCRIPTION_ID=$SUBSCRIPTION_ID" >> env.txt
 echo "RESOUCE_GROUP=$RESOURCE_GROUP" >> env.txt
-echo "AVA_PROVISIONING_TOKEN=$PROVISIONING_TOKEN">> env.txt
+echo "AVI_PROVISIONING_TOKEN=$PROVISIONING_TOKEN">> env.txt
 echo "VIDEO_INPUT_FOLDER_ON_DEVICE=$VIDEO_INPUT_FOLDER_ON_DEVICE">> env.txt
 echo "VIDEO_OUTPUT_FOLDER_ON_DEVICE=$VIDEO_OUTPUT_FOLDER_ON_DEVICE" >> env.txt
 echo "APPDATA_FOLDER_ON_DEVICE=$APPDATA_FOLDER_ON_DEVICE" >> env.txt

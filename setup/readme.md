@@ -1,6 +1,6 @@
-# Azure Video Analyzer
+# Azure Video Indexer
 
-The scripts in this folder are used to deploy the Azure Video Analyzer.  This deployment enables quickstarts and other samples for Video Analyzer.
+The scripts in this folder are used to deploy the Azure Video Indexer.  This deployment enables quickstarts and other samples for Video Indexer.
 
 - deploy-modules.sh - This script is used to deploy the IoT Edge modules to the IoT Edge device based off of the deployment manifest (general-sample-setup.modules.json)
 - form.json- custom deployment form used in Azure Portal
@@ -10,15 +10,15 @@ The scripts in this folder are used to deploy the Azure Video Analyzer.  This de
 - prepare-device.sh - Configures the IoT Edge device with the required user and folder structures.
 - simulated-device.deploy.json - Deploys a VM to be used as a simulated IoT Edge device.
 - start.deploy.json - Master template and controls the flow between the rest of the deployment templates
-- video-analyzer.deploy.json - Deploys storage, identities, and the Azure Video Analyzer resources.
+- video-Indexer.deploy.json - Deploys storage, identities, and the Azure Video Indexer resources.
 
 
 
 > NOTE: Things like VM availability in the selected region will cause the deployment to fail.
 
-### Deploy the required Video Analyzer resources
+### Deploy the required Video Indexer resources
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fvideo-analyzer%2Fmain%2Fsetup%2Fstart.deploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fvideo-analyzer%2Fmain%2Fsetup%2Fform.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fvideo-Indexer%2Fmain%2Fsetup%2Fstart.deploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fvideo-indexer%2Fmain%2Fsetup%2Fform.json)
 
 After the script finishes you will have the following Azure resources:
 
@@ -30,7 +30,7 @@ After the script finishes you will have the following Azure resources:
   - [Public IP address (if the Bastion option was not set)](https://docs.microsoft.com/azure/virtual-network/public-ip-addresses)
 - [Virtual network](https://docs.microsoft.com/azure/virtual-network/virtual-networks-overview)
 - [Storage account](https://docs.microsoft.com/azure/storage/common/storage-account-overview) 
-- [Azure Video Analyzer](https://docs.microsoft.com/azure/azure-video-analyzer/overview)
+- [Azure Video Indexer](https://docs.microsoft.com/azure/azure-video-indexer/overview)
 - [Managed Identities](https://docs.microsoft.com/azure/active-directory/managed-identities-azure-resources/overview)
 - [Bastion Host (if the Bastion option was set)](https://docs.microsoft.com/azure/bastion/)
 
