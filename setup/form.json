@@ -27,7 +27,7 @@
                     "label": "Region",
                     "toolTip": "The list is constrained to regions where Video Indexer is available.",
                     "resourceTypes": [
-                        "Microsoft.Media/videoIndexers"
+                        "Microsoft.VideoIndexer"
                     ],
                     "visible": true
                 }

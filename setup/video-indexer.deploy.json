@@ -162,7 +162,7 @@
             }
         },
         {
-            "type": "Microsoft.Media/videoIndexers",
+            "type": "Microsoft.VideoIndexer",
             "comments": "The Azure Video Indexer account",
             "apiVersion": "2021-11-01-preview",
             "name": "[variables('accountName')]",
@@ -198,19 +198,19 @@
             "tags": "[parameters('resourceTags')]"
         },
         {
-            "type": "Microsoft.Media/videoIndexers/edgeModules",
+            "type": "Microsoft.VideoIndexer/edgeModules",
             "comments": "",
             "apiVersion": "2021-05-01-preview",
             "name": "[concat(variables('accountName'),'/',variables('edgeModuleName'))]",
             "dependsOn": [
-                "[resourceId('Microsoft.Media/videoIndexers', variables('accountName'))]"
+                "[resourceId('Microsoft.VideoIndexer', variables('accountName'))]"
             ]
         }
     ],
     "outputs": {
         "accountId": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Media/videoIndexers', variables('accountName'))]"
+            "value": "[resourceId('Microsoft.VideoIndexer', variables('accountName'))]"
         },
         "edgeModuleName": {
             "type": "string",
@@ -222,7 +222,7 @@
         },
         "provisioningToken": {
             "type": "string",
-            "value": "[listProvisioningToken(resourceId('Microsoft.Media/videoIndexers/edgeModules', variables('accountName'), variables('edgeModuleName')),'2021-05-01-preview',variables('tokenExpiration')).token]"
+            "value": "[listProvisioningToken(resourceId('Microsoft.VideoIndexer/edgeModules', variables('accountName'), variables('edgeModuleName')),'2021-05-01-preview',variables('tokenExpiration')).token]"
         }
     }
 }
