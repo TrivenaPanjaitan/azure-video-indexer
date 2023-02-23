@@ -164,7 +164,7 @@
         {
             "type": "Microsoft.VideoIndexer",
             "comments": "The Azure Video Indexer account",
-            "apiVersion": "2021-11-01-preview",
+            "apiVersion": "2022-08-01",
             "name": "[variables('accountName')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -200,7 +200,7 @@
         {
             "type": "Microsoft.VideoIndexer/edgeModules",
             "comments": "",
-            "apiVersion": "2021-05-01-preview",
+            "apiVersion": "2022-08-01",
             "name": "[concat(variables('accountName'),'/',variables('edgeModuleName'))]",
             "dependsOn": [
                 "[resourceId('Microsoft.VideoIndexer', variables('accountName'))]"
