@@ -162,7 +162,7 @@
             }
         },
         {
-            "type": "Microsoft.VideoIndexer",
+            "type": "Microsoft.VideoIndexer/accounts",
             "comments": "The Azure Video Indexer account",
             "apiVersion": "2022-08-01",
             "name": "[variables('accountName')]",
