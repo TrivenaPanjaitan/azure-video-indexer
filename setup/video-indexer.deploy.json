@@ -198,7 +198,7 @@
             "tags": "[parameters('resourceTags')]"
         },
         {
-            "type": "Microsoft.VideoIndexer/accounts/edgeModules",
+            "type": "Microsoft.VideoIndexer/accounts/operations",
             "comments": "",
             "apiVersion": "2022-08-01",
             "name": "[concat(variables('accountName'),'/',variables('edgeModuleName'))]",
@@ -222,7 +222,7 @@
         },
         "provisioningToken": {
             "type": "string",
-            "value": "[listProvisioningToken(resourceId('Microsoft.VideoIndexer/accounts/edgeModules', variables('accountName'), variables('edgeModuleName')),'2022-08-01',variables('tokenExpiration')).token]"
+            "value": "[listProvisioningToken(resourceId('Microsoft.VideoIndexer/accounts/operations', variables('accountName'), variables('edgeModuleName')),'2022-08-01',variables('tokenExpiration')).token]"
         }
     }
 }
