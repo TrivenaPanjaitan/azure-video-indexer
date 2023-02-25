@@ -203,14 +203,14 @@
             "apiVersion": "2022-08-01",
             "name": "[concat(variables('accountName'),'/',variables('edgeModuleName'))]",
             "dependsOn": [
-                "[resourceId('Microsoft.VideoIndexer', variables('accountName'))]"
+                "[resourceId('Microsoft.VideoIndexer/accounts', variables('accountName'))]"
             ]
         }
     ],
     "outputs": {
         "accountId": {
             "type": "string",
-            "value": "[resourceId('Microsoft.VideoIndexer', variables('accountName'))]"
+            "value": "[resourceId('Microsoft.VideoIndexer/accounts', variables('accountName'))]"
         },
         "edgeModuleName": {
             "type": "string",
